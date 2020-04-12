@@ -15,15 +15,14 @@ fun main() {
         print("Enter dimension for ship ${index + 1} (a*b) : ")
         val nthShipADimension = scanner.nextInt()
         val nthShipBDimension = scanner.nextInt()
-        val ship = Ship(nthShipADimension, nthShipBDimension)
-        battleField1.placeShip(ship)
-        battleField2.placeShip(ship)
+        battleField1.placeShip(Ship(nthShipADimension, nthShipBDimension))
+        battleField2.placeShip(Ship(nthShipADimension, nthShipBDimension))
     }
     battleField1.ships.forEach {
-        println("Coordinates : ${it.xCoordinateOnBoard} ${it.yCoordinateOnBoard} ${it.direction}")
+        println("BattleField1 Coordinates : ${it.xCoordinateOnBoard} ${it.yCoordinateOnBoard} ${it.direction}")
     }
     battleField2.ships.forEach {
-        println("Coordinates : ${it.xCoordinateOnBoard} ${it.yCoordinateOnBoard} ${it.direction}")
+        println("BattleField2 Coordinates : ${it.xCoordinateOnBoard} ${it.yCoordinateOnBoard} ${it.direction}")
     }
 
     while (battleField1.hasFloatingShips() && battleField2.hasFloatingShips()) {
@@ -43,4 +42,8 @@ fun main() {
             println("Shot status : $shotStatus")
         } while (shotStatus == ShotStatus.HIT && battleField1.hasFloatingShips())
     }
+
+    if (battleField1.hasFloatingShips())
+        println("Player 1 Wins!!!!!!!!!!")
+    else println("Player 2 Wins!!!!!!!!!!")
 }
