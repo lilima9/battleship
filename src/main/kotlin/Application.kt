@@ -19,9 +19,28 @@ fun main() {
         battleField1.placeShip(ship)
         battleField2.placeShip(ship)
     }
+    battleField1.ships.forEach {
+        println("Coordinates : ${it.xCoordinateOnBoard} ${it.yCoordinateOnBoard} ${it.direction}")
+    }
+    battleField2.ships.forEach {
+        println("Coordinates : ${it.xCoordinateOnBoard} ${it.yCoordinateOnBoard} ${it.direction}")
+    }
 
-    val player1 = Player(battleField1)
-    val player2 = Player(battleField2)
+    while (battleField1.hasFloatingShips() && battleField2.hasFloatingShips()) {
+        do {
+            print("Player 1: Enter target to hit (0 0) : ")
+            val player1TargetXCoordinate = scanner.nextInt()
+            val player1TargetYCoordinate = scanner.nextInt()
+            val shotStatus = battleField2.fireShot(player1TargetXCoordinate, player1TargetYCoordinate)
+            println("Shot status : $shotStatus")
+        } while (shotStatus == ShotStatus.HIT && battleField2.hasFloatingShips())
 
-
+        do {
+            print("Player 2: Enter target to hit (0 0) : ")
+            val player2TargetXCoordinate = scanner.nextInt()
+            val player2TargetYCoordinate = scanner.nextInt()
+            val shotStatus = battleField1.fireShot(player2TargetXCoordinate, player2TargetYCoordinate)
+            println("Shot status : $shotStatus")
+        } while (shotStatus == ShotStatus.HIT && battleField1.hasFloatingShips())
+    }
 }

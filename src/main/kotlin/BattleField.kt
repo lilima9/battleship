@@ -17,10 +17,10 @@ class BattleField(
     private fun xCoordinateForShip(ship: Ship): Int {
         return when (ship.direction) {
             Direction.LR -> {
-                ((numberOfColumns - ship.breadth)..numberOfColumns).random()
+                (0 until numberOfColumns - ship.length).random()
             }
             Direction.TB -> {
-                ((numberOfRows - ship.length)..numberOfRows).random()
+                (0 until (numberOfRows - ship.length)).random()
             }
         }
     }
@@ -28,11 +28,28 @@ class BattleField(
     private fun yCoordinateForShip(ship: Ship): Int {
         return when (ship.direction) {
             Direction.LR -> {
-                ((numberOfRows - ship.length)..numberOfRows).random()
+                (0 until (numberOfRows - ship.breadth)).random()
             }
             Direction.TB -> {
-                ((numberOfColumns - ship.length)..numberOfColumns).random()
+                (0 until (numberOfColumns - ship.breadth)).random()
             }
         }
+    }
+
+    fun hasFloatingShips(): Boolean {
+        return ships.any {
+            it.isFloating
+        }
+    }
+
+    fun fireShot(xCoordinate: Int, yCoordinate: Int): ShotStatus {
+        val ship = ships.firstOrNull {
+            it.isInRange(xCoordinate, yCoordinate)
+        }
+        ship?.let {
+            it.increaseHitCount()
+            return ShotStatus.HIT
+        }
+        return ShotStatus.MISS
     }
 }
