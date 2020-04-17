@@ -1,14 +1,13 @@
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-
 class BattleFieldTest {
     @Test
     fun `placeShip should add ship to the field`() {
         val battleField = BattleField(5, 5)
         val ship = Ship(2, 2)
 
-        battleField.placeShip(ship)
+        battleField.placeShip(ship, 0, 0)
 
         assertThat(battleField.ships).contains(ship)
     }
@@ -18,7 +17,7 @@ class BattleFieldTest {
         val battleField = BattleField(5, 5)
         val ship = Ship(2, 2)
 
-        battleField.placeShip(ship)
+        battleField.placeShip(ship, 0, 0)
 
         assertThat(battleField.ships[0].xCoordinateOnBoard).isLessThan(5)
         assertThat(battleField.ships[0].xCoordinateOnBoard + 2).isLessThan(5)
@@ -31,7 +30,7 @@ class BattleFieldTest {
         val battleField = BattleField(5, 5)
         val ship = Ship(2, 2)
 
-        battleField.placeShip(ship)
+        battleField.placeShip(ship, 0 ,0 )
 
         assertThat(battleField.hasFloatingShips()).isTrue()
     }
@@ -41,12 +40,12 @@ class BattleFieldTest {
         val battleField = BattleField(5, 5)
         val ship = Ship(2, 2)
 
-        battleField.placeShip(ship)
+        battleField.placeShip(ship,0,0)
 
         val xCoordinateOnBoard = ship.xCoordinateOnBoard
         val yCoordinateOnBoard = ship.yCoordinateOnBoard
         assertThat(
-            battleField.fireShot(
+            battleField.hit(
                 xCoordinateOnBoard + 1,
                 yCoordinateOnBoard
             )
@@ -58,12 +57,12 @@ class BattleFieldTest {
         val battleField = BattleField(5, 5)
         val ship = Ship(1, 2)
 
-        battleField.placeShip(ship)
+        battleField.placeShip(ship,0,0)
 
         val xCoordinateOnBoard = ship.xCoordinateOnBoard
         val yCoordinateOnBoard = ship.yCoordinateOnBoard
         assertThat(
-            battleField.fireShot(
+            battleField.hit(
                 xCoordinateOnBoard + 2,
                 yCoordinateOnBoard
             )

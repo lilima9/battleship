@@ -5,35 +5,12 @@ class BattleField(
     var ships: MutableList<Ship> = emptyList<Ship>().toMutableList()
         private set
 
-    fun placeShip(ship: Ship) {
-        val xCoordinateForShip = xCoordinateForShip(ship)
-        val yCoordinateForShip = yCoordinateForShip(ship)
-
+    fun placeShip(ship: Ship, xCoordinateForShip: Int, yCoordinateForShip: Int) {
+        require(xCoordinateForShip <= numberOfRows - 1)
+        require(yCoordinateForShip <= numberOfColumns - 1)
         ship.assignLocationOnBoard(xCoordinateForShip, yCoordinateForShip)
 
         ships.add(ship)
-    }
-
-    private fun xCoordinateForShip(ship: Ship): Int {
-        return when (ship.direction) {
-            Direction.LR -> {
-                (0 until numberOfColumns - ship.length).random()
-            }
-            Direction.TB -> {
-                (0 until (numberOfRows - ship.length)).random()
-            }
-        }
-    }
-
-    private fun yCoordinateForShip(ship: Ship): Int {
-        return when (ship.direction) {
-            Direction.LR -> {
-                (0 until (numberOfRows - ship.breadth)).random()
-            }
-            Direction.TB -> {
-                (0 until (numberOfColumns - ship.breadth)).random()
-            }
-        }
     }
 
     fun hasFloatingShips(): Boolean {
@@ -42,7 +19,7 @@ class BattleField(
         }
     }
 
-    fun fireShot(xCoordinate: Int, yCoordinate: Int): ShotStatus {
+    fun hit(xCoordinate: Int, yCoordinate: Int): ShotStatus {
         val ship = ships.firstOrNull {
             it.isInRange(xCoordinate, yCoordinate)
         }

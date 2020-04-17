@@ -1,1 +1,3 @@
-class Player(battleField: BattleField)
+class Player(
+    val battleField: BattleField
+)

@@ -58,4 +58,14 @@ class ShipTest {
 
         assertThat(ship.isFloating).isFalse()
     }
+
+    @Test
+    fun `willClashPositionWith should be false when the ship will clash with given ship's position`() {
+        val ship = Ship(1, 1)
+        ship.assignLocationOnBoard(0, 1)
+
+        ship.increaseHitCount()
+
+        assertThat(ship.isFloating).isFalse()
+    }
 }

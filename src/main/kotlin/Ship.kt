@@ -3,14 +3,12 @@ class Ship(val length: Int, val breadth: Int) {
         private set
     var yCoordinateOnBoard: Int = 0
         private set
-    val direction = Direction.values().random()
     var hitCount: Int = 0
         private set
     val isFloating: Boolean
         get() {
-            return length * breadth != hitCount
+            return length * breadth > hitCount
         }
-
 
     fun assignLocationOnBoard(xCoordinate: Int, yCoordinate: Int) {
         this.xCoordinateOnBoard = xCoordinate

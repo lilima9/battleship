@@ -7,7 +7,9 @@ fun main() {
     val numberOfColumns = scanner.nextInt()
 
     val battleField1 = BattleField(numberOfRows, numberOfColumns)
+    val player1 = Player(battleField1)
     val battleField2 = BattleField(numberOfRows, numberOfColumns)
+    val player2 = Player(battleField2)
     print("Enter number of ships : ")
     val numberOfShips = scanner.nextInt()
 
@@ -15,35 +17,26 @@ fun main() {
         print("Enter dimension for ship ${index + 1} (a*b) : ")
         val nthShipADimension = scanner.nextInt()
         val nthShipBDimension = scanner.nextInt()
-        battleField1.placeShip(Ship(nthShipADimension, nthShipBDimension))
-        battleField2.placeShip(Ship(nthShipADimension, nthShipBDimension))
+        print("Enter position for ship ${index + 1} (0 0) on battlefield 1: ")
+        battleField1.placeShip(Ship(nthShipADimension, nthShipBDimension), scanner.nextInt(), scanner.nextInt())
+        print("Enter position for ship ${index + 1} (0 0) on battlefield 2: ")
+        battleField2.placeShip(Ship(nthShipADimension, nthShipBDimension), scanner.nextInt(), scanner.nextInt())
     }
     battleField1.ships.forEach {
-        println("BattleField1 Coordinates : ${it.xCoordinateOnBoard} ${it.yCoordinateOnBoard} ${it.direction}")
+        println("BattleField 1 Coordinates : ${it.xCoordinateOnBoard} ${it.yCoordinateOnBoard}")
     }
     battleField2.ships.forEach {
-        println("BattleField2 Coordinates : ${it.xCoordinateOnBoard} ${it.yCoordinateOnBoard} ${it.direction}")
+        println("BattleField 2 Coordinates : ${it.xCoordinateOnBoard} ${it.yCoordinateOnBoard} ")
     }
 
-    while (battleField1.hasFloatingShips() && battleField2.hasFloatingShips()) {
-        do {
-            print("Player 1: Enter target to hit (0 0) : ")
-            val player1TargetXCoordinate = scanner.nextInt()
-            val player1TargetYCoordinate = scanner.nextInt()
-            val shotStatus = battleField2.fireShot(player1TargetXCoordinate, player1TargetYCoordinate)
-            println("Shot status : $shotStatus")
-        } while (shotStatus == ShotStatus.HIT && battleField2.hasFloatingShips())
+    val inputter = InputTaker(scanner)
+    val game = Game(player1, player2)
 
-        do {
-            print("Player 2: Enter target to hit (0 0) : ")
-            val player2TargetXCoordinate = scanner.nextInt()
-            val player2TargetYCoordinate = scanner.nextInt()
-            val shotStatus = battleField1.fireShot(player2TargetXCoordinate, player2TargetYCoordinate)
-            println("Shot status : $shotStatus")
-        } while (shotStatus == ShotStatus.HIT && battleField1.hasFloatingShips())
-    }
+    val winningPlayer = game.play(inputter)
 
-    if (battleField1.hasFloatingShips())
+    if (winningPlayer == player1)
         println("Player 1 Wins!!!!!!!!!!")
     else println("Player 2 Wins!!!!!!!!!!")
 }
+
+
