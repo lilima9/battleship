@@ -16,10 +16,12 @@ class BattleFieldTest {
     fun `placeShip should assign location to ship within the board`() {
         val battleField = BattleField(5, 5)
         val ship = Ship(2, 2)
+        val location = Point(0, 0)
 
-        battleField.placeShip(ship, Point(0, 0))
+        battleField.placeShip(ship, location)
 
-        assertThat(battleField.ships[0].locationOnBoard).isEqualTo(Point(0, 0))
+        assertThat(battleField.shipCoordinates.first().first).isEqualTo(location)
+        assertThat(battleField.shipCoordinates.first().second).isEqualTo(ship)
     }
 
     @Test
@@ -33,38 +35,34 @@ class BattleFieldTest {
     }
 
     @Test
-    fun `fireShot should return Hit when the shot hits a ship`() {
+    fun `hit should return Hit when the shot hits a ship`() {
         val battleField = BattleField(5, 5)
         val ship = Ship(2, 2)
 
         battleField.placeShip(ship, Point(0, 0))
 
-        val xCoordinateOnBoard = ship.locationOnBoard.xCoordinate
-        val yCoordinateOnBoard = ship.locationOnBoard.yCoordinate
         assertThat(
             battleField.hit(
                 Point(
-                    xCoordinateOnBoard + 1,
-                    yCoordinateOnBoard
+                    1,
+                    1
                 )
             )
         ).isEqualTo(ShotStatus.HIT)
     }
 
     @Test
-    fun `fireShot should return Miss when the shot does not hit a ship`() {
+    fun `hit should return Miss when the shot does not hit a ship`() {
         val battleField = BattleField(5, 5)
         val ship = Ship(1, 2)
 
         battleField.placeShip(ship, Point(0, 0))
 
-        val xCoordinateOnBoard = ship.locationOnBoard.xCoordinate
-        val yCoordinateOnBoard = ship.locationOnBoard.yCoordinate
         assertThat(
             battleField.hit(
                 Point(
-                    xCoordinateOnBoard + 2,
-                    yCoordinateOnBoard
+                    2,
+                    1
                 )
             )
         ).isEqualTo(ShotStatus.MISS)

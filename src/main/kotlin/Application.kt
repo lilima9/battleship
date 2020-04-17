@@ -22,12 +22,6 @@ fun main() {
         print("Enter position for ship ${index + 1} (0 0) on battlefield 2: ")
         battleField2.placeShip(Ship(nthShipADimension, nthShipBDimension),  Point(scanner.nextInt(), scanner.nextInt()))
     }
-    battleField1.ships.forEach {
-        println("BattleField 1 Coordinates : ${it.locationOnBoard.xCoordinate} ${it.locationOnBoard.yCoordinate}")
-    }
-    battleField2.ships.forEach {
-        println("BattleField 2 Coordinates : ${it.locationOnBoard.xCoordinate} ${it.locationOnBoard.yCoordinate}")
-    }
 
     val inputTaker = InputTaker(scanner)
     val game = Game(player1, player2)
