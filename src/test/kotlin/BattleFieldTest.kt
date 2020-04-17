@@ -1,5 +1,7 @@
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import java.lang.IllegalArgumentException
 
 class BattleFieldTest {
     @Test
@@ -22,6 +24,28 @@ class BattleFieldTest {
 
         assertThat(battleField.shipCoordinates.first().first).isEqualTo(location)
         assertThat(battleField.shipCoordinates.first().second).isEqualTo(ship)
+    }
+
+    @Test
+    fun `placeShip should throw error when x coordinate is not on board`() {
+        val battleField = BattleField(5, 5)
+        val ship = Ship(2, 2)
+        val location = Point(6, 2)
+
+        assertThrows<IllegalArgumentException> {
+            battleField.placeShip(ship, location)
+        }
+    }
+
+    @Test
+    fun `placeShip should throw error when y coordinate is not on board`() {
+        val battleField = BattleField(5, 5)
+        val ship = Ship(2, 2)
+        val location = Point(2, 6)
+
+        assertThrows<IllegalArgumentException> {
+            battleField.placeShip(ship, location)
+        }
     }
 
     @Test

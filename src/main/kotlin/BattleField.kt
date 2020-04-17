@@ -16,9 +16,7 @@ class BattleField(
     }
 
     fun hasFloatingShips(): Boolean {
-        return ships.any {
-            it.isFloating
-        }
+        return ships.any { it.isFloating }
     }
 
     fun hit(location: Point): ShotStatus {
