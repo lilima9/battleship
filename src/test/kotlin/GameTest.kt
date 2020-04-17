@@ -45,7 +45,7 @@ class GameTest {
     }
 
     @Test
-    fun `should return player 1 when player 1 hits all ships of player 2`() {
+    fun `should return player 1 when player 1 hits all ships of player 2 in consecutive turns`() {
         val battleField1 = BattleField(4, 4)
         battleField1.placeShip(Ship(1, 1), 0, 0)
         battleField1.placeShip(Ship(1, 1), 0, 1)

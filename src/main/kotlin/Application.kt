@@ -29,10 +29,10 @@ fun main() {
         println("BattleField 2 Coordinates : ${it.xCoordinateOnBoard} ${it.yCoordinateOnBoard} ")
     }
 
-    val inputter = InputTaker(scanner)
+    val inputTaker = InputTaker(scanner)
     val game = Game(player1, player2)
 
-    val winningPlayer = game.play(inputter)
+    val winningPlayer = game.play(inputTaker)
 
     if (winningPlayer == player1)
         println("Player 1 Wins!!!!!!!!!!")
