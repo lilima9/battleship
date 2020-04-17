@@ -7,7 +7,7 @@ class BattleFieldTest {
         val battleField = BattleField(5, 5)
         val ship = Ship(2, 2)
 
-        battleField.placeShip(ship, 0, 0)
+        battleField.placeShip(ship, Point(0, 0))
 
         assertThat(battleField.ships).contains(ship)
     }
@@ -17,12 +17,9 @@ class BattleFieldTest {
         val battleField = BattleField(5, 5)
         val ship = Ship(2, 2)
 
-        battleField.placeShip(ship, 0, 0)
+        battleField.placeShip(ship, Point(0, 0))
 
-        assertThat(battleField.ships[0].xCoordinateOnBoard).isLessThan(5)
-        assertThat(battleField.ships[0].xCoordinateOnBoard + 2).isLessThan(5)
-        assertThat(battleField.ships[0].yCoordinateOnBoard).isLessThan(5)
-        assertThat(battleField.ships[0].yCoordinateOnBoard + 2).isLessThan(5)
+        assertThat(battleField.ships[0].locationOnBoard).isEqualTo(Point(0, 0))
     }
 
     @Test
@@ -30,7 +27,7 @@ class BattleFieldTest {
         val battleField = BattleField(5, 5)
         val ship = Ship(2, 2)
 
-        battleField.placeShip(ship, 0 ,0 )
+        battleField.placeShip(ship, Point(0, 0))
 
         assertThat(battleField.hasFloatingShips()).isTrue()
     }
@@ -40,14 +37,16 @@ class BattleFieldTest {
         val battleField = BattleField(5, 5)
         val ship = Ship(2, 2)
 
-        battleField.placeShip(ship,0,0)
+        battleField.placeShip(ship, Point(0, 0))
 
-        val xCoordinateOnBoard = ship.xCoordinateOnBoard
-        val yCoordinateOnBoard = ship.yCoordinateOnBoard
+        val xCoordinateOnBoard = ship.locationOnBoard.xCoordinate
+        val yCoordinateOnBoard = ship.locationOnBoard.yCoordinate
         assertThat(
             battleField.hit(
-                xCoordinateOnBoard + 1,
-                yCoordinateOnBoard
+                Point(
+                    xCoordinateOnBoard + 1,
+                    yCoordinateOnBoard
+                )
             )
         ).isEqualTo(ShotStatus.HIT)
     }
@@ -57,14 +56,16 @@ class BattleFieldTest {
         val battleField = BattleField(5, 5)
         val ship = Ship(1, 2)
 
-        battleField.placeShip(ship,0,0)
+        battleField.placeShip(ship, Point(0, 0))
 
-        val xCoordinateOnBoard = ship.xCoordinateOnBoard
-        val yCoordinateOnBoard = ship.yCoordinateOnBoard
+        val xCoordinateOnBoard = ship.locationOnBoard.xCoordinate
+        val yCoordinateOnBoard = ship.locationOnBoard.yCoordinate
         assertThat(
             battleField.hit(
-                xCoordinateOnBoard + 2,
-                yCoordinateOnBoard
+                Point(
+                    xCoordinateOnBoard + 2,
+                    yCoordinateOnBoard
+                )
             )
         ).isEqualTo(ShotStatus.MISS)
     }

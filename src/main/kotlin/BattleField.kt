@@ -5,10 +5,10 @@ class BattleField(
     var ships: MutableList<Ship> = emptyList<Ship>().toMutableList()
         private set
 
-    fun placeShip(ship: Ship, xCoordinateForShip: Int, yCoordinateForShip: Int) {
-        require(xCoordinateForShip <= numberOfRows - 1)
-        require(yCoordinateForShip <= numberOfColumns - 1)
-        ship.assignLocationOnBoard(xCoordinateForShip, yCoordinateForShip)
+    fun placeShip(ship: Ship, location: Point) {
+        require(location.xCoordinate <= numberOfRows - 1)
+        require(location.yCoordinate <= numberOfColumns - 1)
+        ship.assignLocationOnBoard(location)
 
         ships.add(ship)
     }
@@ -19,9 +19,9 @@ class BattleField(
         }
     }
 
-    fun hit(xCoordinate: Int, yCoordinate: Int): ShotStatus {
+    fun hit(location: Point): ShotStatus {
         val ship = ships.firstOrNull {
-            it.isInRange(xCoordinate, yCoordinate)
+            it.isInRange(location)
         }
         ship?.let {
             it.increaseHitCount()

@@ -7,32 +7,32 @@ class ShipTest {
     fun `assignLocationOnBoard should assign x and y coordinate of ship in battlefield`() {
         val ship = Ship(2, 3)
 
-        ship.assignLocationOnBoard(0, 1)
+        ship.assignLocationOnBoard(Point(0, 1))
 
-        assertEquals(0, ship.xCoordinateOnBoard)
-        assertEquals(1, ship.yCoordinateOnBoard)
+        assertEquals(0, ship.locationOnBoard.xCoordinate)
+        assertEquals(1, ship.locationOnBoard.yCoordinate)
     }
 
     @Test
     fun `isInRange should return true when the ship is in the range of given coordinates`() {
         val ship = Ship(2, 3)
-        ship.assignLocationOnBoard(0, 1)
+        ship.assignLocationOnBoard(Point(0, 1))
 
-        assertThat(ship.isInRange(0, 1)).isTrue()
+        assertThat(ship.isInRange(Point(0, 1))).isTrue()
     }
 
     @Test
     fun `isInRange should return false when the ship is not in the range of given coordinates`() {
         val ship = Ship(2, 3)
-        ship.assignLocationOnBoard(0, 1)
+        ship.assignLocationOnBoard(Point(0, 1))
 
-        assertThat(ship.isInRange(3, 1)).isFalse()
+        assertThat(ship.isInRange(Point(3, 1))).isFalse()
     }
 
     @Test
     fun `updateHitStatus should update the hit count of the ship`() {
         val ship = Ship(2, 3)
-        ship.assignLocationOnBoard(0, 1)
+        ship.assignLocationOnBoard(Point(0, 1))
 
         ship.increaseHitCount()
 
@@ -42,7 +42,7 @@ class ShipTest {
     @Test
     fun `isFloating should be true when the ship is not completely hit`() {
         val ship = Ship(1, 2)
-        ship.assignLocationOnBoard(0, 1)
+        ship.assignLocationOnBoard(Point(0, 1))
 
         ship.increaseHitCount()
 
@@ -52,7 +52,7 @@ class ShipTest {
     @Test
     fun `isFloating should be false when the ship is completely hit`() {
         val ship = Ship(1, 1)
-        ship.assignLocationOnBoard(0, 1)
+        ship.assignLocationOnBoard(Point(0, 1))
 
         ship.increaseHitCount()
 
@@ -62,7 +62,7 @@ class ShipTest {
     @Test
     fun `willClashPositionWith should be false when the ship will clash with given ship's position`() {
         val ship = Ship(1, 1)
-        ship.assignLocationOnBoard(0, 1)
+        ship.assignLocationOnBoard(Point(0, 1))
 
         ship.increaseHitCount()
 

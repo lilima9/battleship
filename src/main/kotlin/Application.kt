@@ -18,15 +18,15 @@ fun main() {
         val nthShipADimension = scanner.nextInt()
         val nthShipBDimension = scanner.nextInt()
         print("Enter position for ship ${index + 1} (0 0) on battlefield 1: ")
-        battleField1.placeShip(Ship(nthShipADimension, nthShipBDimension), scanner.nextInt(), scanner.nextInt())
+        battleField1.placeShip(Ship(nthShipADimension, nthShipBDimension), Point(scanner.nextInt(), scanner.nextInt()))
         print("Enter position for ship ${index + 1} (0 0) on battlefield 2: ")
-        battleField2.placeShip(Ship(nthShipADimension, nthShipBDimension), scanner.nextInt(), scanner.nextInt())
+        battleField2.placeShip(Ship(nthShipADimension, nthShipBDimension),  Point(scanner.nextInt(), scanner.nextInt()))
     }
     battleField1.ships.forEach {
-        println("BattleField 1 Coordinates : ${it.xCoordinateOnBoard} ${it.yCoordinateOnBoard}")
+        println("BattleField 1 Coordinates : ${it.locationOnBoard.xCoordinate} ${it.locationOnBoard.yCoordinate}")
     }
     battleField2.ships.forEach {
-        println("BattleField 2 Coordinates : ${it.xCoordinateOnBoard} ${it.yCoordinateOnBoard} ")
+        println("BattleField 2 Coordinates : ${it.locationOnBoard.xCoordinate} ${it.locationOnBoard.yCoordinate}")
     }
 
     val inputTaker = InputTaker(scanner)

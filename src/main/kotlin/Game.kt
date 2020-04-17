@@ -19,8 +19,8 @@ class Game(
         if (player == player1) println("Player 1") else println("Player 2")
         do {
             print("Enter target to hit (0 0) : ")
-            val (xCoordinate, yCoordinate) = player.enterTarget(scanner)
-            val shotStatus = oppositionBattleField.hit(xCoordinate, yCoordinate)
+            val location = player.enterTarget(scanner)
+            val shotStatus = oppositionBattleField.hit(location)
             println("Shot status : $shotStatus")
         } while (shotStatus == ShotStatus.HIT && oppositionBattleField.hasFloatingShips())
     }
